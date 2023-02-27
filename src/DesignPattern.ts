@@ -1,7 +1,11 @@
 class SingleTon {
+  private static instance: SingleTon | null = null
   private constructor() {}
   public static getInstance(): SingleTon {
-    return new SingleTon()
+    if (this.instance == null) {
+      this.instance = new SingleTon()
+    }
+    return this.instance
   }
   fn1() {}
   fn2() {}
