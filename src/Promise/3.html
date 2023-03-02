@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function PromiseAll(promiseArray) {
+      return new Promise((resolve, reject) => {
+        if (!Array.isArray(promiseArray)) {
+          return reject(new Error('传入的参数必须是数组'))
+        }
+        const res = [];
+        const promiseNums = promiseArray.length;
+        let cnt = 0;
+        for(let i=0;i<promiseArray.length;i++) {
+          Promise.resolve(promiseArray[i]).then(value => {
+            cnt++;
+            res[i] = value;
+            if (cnt === promiseNums) {
+              resolve(res);
+            }
+          }).catch(e => reject(e))
+        }
+      })
+    }
+
+    const pro1 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(1);
+      }, 1000)
+    })
+
+    const pro2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(2);
+      }, 2000)
+    })
+
+    const pro3 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(3);
+      }, 3000)
+    })
+
+    const proAll = PromiseAll([pro1, pro2, pro3])
+      .then(res => {
+        console.log(res)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  </script>
+</body>
+</html>
