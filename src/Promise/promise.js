@@ -5,6 +5,7 @@ const REJECTED = 'rejected';
 class MyPromise {
   FULFILLED_CALLBACK_LIST = [];
   REJECTED_CALL_LIST = [];
+  _status = PENDING;
 
   constructor(fn) {
     this.status = PENDING;
@@ -18,17 +19,39 @@ class MyPromise {
     }
   }
 
+  get status() {
+    return this._status;
+  }
+
+  set status(newStatus) {
+    this._status = newStatus;
+    switch (newStatus) {
+      case FULFILLED: {
+        this.FULFILLED_CALLBACK_LIST.forEach(callback => {
+          callback(this.value);
+        })
+        break;
+      }
+      case REJECTED: {
+        this.REJECTED_CALL_LIST.forEach(callback => {
+          callback(this.reason);
+        })
+        break;
+      }
+    }
+  }
+
   resolve(value) {
     if (this.status === PENDING) {
-      this.status = FULFILLED
-      this.value = value
+      this.value = value;
+      this.status = FULFILLED;
     }
   }
 
   reject(reason) {
     if (this.status === PENDING) {
-      this.status = REJECTED
-      this.reason = reason
+      this.reason = reason;
+      this.status = REJECTED;
     }
   }
 
