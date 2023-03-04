@@ -63,40 +63,53 @@ class MyPromise {
       throw reason;
     }
 
-    const fulFilledFnWithCatch = (resolve, reject) => {
+    const fulFilledFnWithCatch = (resolve, reject, newPromise) => {
       try {
-        fulFilledFn(this.value);
-        resolve(this.value);
+        if (!this.isFunction(onFulfilled)) {
+          resolve(this.value);
+        } else {
+          const x = fulFilledFn(this.value);
+          this.resolvePromise(newPromise, x, resolve, reject);
+        }
       } catch (e) {
         reject(e);
       }
     }
 
-    const rejectedFnWithCatch = (resolve, reject) => {
+    const rejectedFnWithCatch = (resolve, reject, newPromise) => {
       try {
-        rejectedFn(this.value);
-        if (this.isFunction(onRejected)) {
-          resolve();
+        if (!this.isFunction(onRejected)) {
+          reject(this.reason);
+        } else {
+          const x = rejectedFn(this.reason);
+          this.resolvePromise(newPromise, x, resolve, reject);
         }
       } catch (e) {
         reject(e)
       }
     }
 
-    switch(this.status) {
+    switch (this.status) {
       case FULFILLED: {
-        return new Promise(fulFilledFnWithCatch);
+        const newPromise = new MyPromise((resolve, reject) => fulFilledFnWithCatch(resolve, reject, newPromise));
+        return newPromise;
       }
       case REJECTED: {
-        return new Promise(rejectedFnWithCatch);
+        const newPromise = new MyPromise((resolve, reject) => rejectedFn(resolve, reject, newPromise));
+        return newPromise;
       }
       case PENDING: {
-        return new MyPromise((resolve, reject) => {
-          this.FULFILLED_CALLBACK_LIST.push(() => fulFilledFnWithCatch(resolve, reject));
-          this.REJECTED_CALL_LIST.push(() => rejectedFnWithCatch(resolve, reject));
-        })
+        const newPromise = new MyPromise((resolve, reject) => {
+          this.FULFILLED_CALLBACK_LIST.push(() => fulFilledFnWithCatch(resolve, reject, newPromise));
+          this.REJECTED_CALL_LIST.push(() => rejectedFnWithCatch(resolve, reject, newPromise));
+        });
+        return newPromise;
       }
     }
+  }
+
+  resolvePromise(newPromise, x, resolve, reject) {
+
   }
 
   isFunction(param) {
