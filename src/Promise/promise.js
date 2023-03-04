@@ -63,19 +63,38 @@ class MyPromise {
       throw reason;
     }
 
+    const fulFilledFnWithCatch = (resolve, reject) => {
+      try {
+        fulFilledFn(this.value);
+        resolve(this.value);
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    const rejectedFnWithCatch = (resolve, reject) => {
+      try {
+        rejectedFn(this.value);
+        if (this.isFunction(onRejected)) {
+          resolve();
+        }
+      } catch (e) {
+        reject(e)
+      }
+    }
+
     switch(this.status) {
       case FULFILLED: {
-        fulFilledFn(this.value);
-        break;
+        return new Promise(fulFilledFnWithCatch);
       }
       case REJECTED: {
-        rejectedFn(this.reason);
-        break;
+        return new Promise(rejectedFnWithCatch);
       }
       case PENDING: {
-        this.FULFILLED_CALLBACK_LIST.push(fulFilledFn);
-        this.REJECTED_CALL_LIST.push(rejectedFn);
-        break;
+        return new MyPromise((resolve, reject) => {
+          this.FULFILLED_CALLBACK_LIST.push(() => fulFilledFnWithCatch(resolve, reject));
+          this.REJECTED_CALL_LIST.push(() => rejectedFnWithCatch(resolve, reject));
+        })
       }
     }
   }
