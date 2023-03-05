@@ -64,29 +64,33 @@ class MyPromise {
     }
 
     const fulFilledFnWithCatch = (resolve, reject, newPromise) => {
-      try {
-        if (!this.isFunction(onFulfilled)) {
-          resolve(this.value);
-        } else {
-          const x = fulFilledFn(this.value);
-          this.resolvePromise(newPromise, x, resolve, reject);
+      queueMicrotask(() => {
+        try {
+          if (!this.isFunction(onFulfilled)) {
+            resolve(this.value);
+          } else {
+            const x = fulFilledFn(this.value);
+            this.resolvePromise(newPromise, x, resolve, reject);
+          }
+        } catch (e) {
+          reject(e);
         }
-      } catch (e) {
-        reject(e);
-      }
+      })
     }
 
     const rejectedFnWithCatch = (resolve, reject, newPromise) => {
-      try {
-        if (!this.isFunction(onRejected)) {
-          reject(this.reason);
-        } else {
-          const x = rejectedFn(this.reason);
-          this.resolvePromise(newPromise, x, resolve, reject);
+      queueMicrotask(() => {
+        try {
+          if (!this.isFunction(onRejected)) {
+            reject(this.reason);
+          } else {
+            const x = rejectedFn(this.reason);
+            this.resolvePromise(newPromise, x, resolve, reject);
+          }
+        } catch (e) {
+          reject(e)
         }
-      } catch (e) {
-        reject(e)
-      }
+      })
     }
 
     switch (this.status) {
