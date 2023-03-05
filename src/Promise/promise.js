@@ -109,7 +109,52 @@ class MyPromise {
   }
 
   resolvePromise(newPromise, x, resolve, reject) {
+    if (newPromise === x) {
+      return reject(new TypeError('ERROR'));
+    }
 
+    if (x instanceof MyPromise) {
+      x.then(
+
+      )
+    } else if (typeof x === 'object' || this.isFunction(x)) {
+      if (x === null) {
+        return resolve(x);
+      }
+
+      let then = null;
+
+      try {
+        then = x.then;
+      } catch (error) {
+        return reject(error);
+      }
+
+      if (this.isFunction(then)) {
+        let called = false;
+        try {
+          then.call(
+            x,
+            (y) => {
+              if (called) {
+                return ;
+              }
+              called = true;
+              this.resolvePromise();
+            }
+          )
+        } catch (error) {
+          if (called) {
+            return ;
+          }
+          reject(error);
+        }
+      } else {
+        resolve(x);
+      }
+    } else {
+      resolve(x);
+    }
   }
 
   isFunction(param) {
