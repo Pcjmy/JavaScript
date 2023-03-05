@@ -166,4 +166,8 @@ class MyPromise {
   }
 }
 
-const promise = new MyPromise((resolve, reject) => {})
+const promise = new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1);
+  }, 1000);
+}).then(console.log);
