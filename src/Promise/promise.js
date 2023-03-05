@@ -112,6 +112,10 @@ class MyPromise {
     }
   }
 
+  catch (onRejected) {
+    return this.then(null, onRejected);
+  }
+
   resolvePromise(newPromise, x, resolve, reject) {
     if (newPromise === x) {
       return reject(new TypeError('ERROR'));
@@ -119,7 +123,10 @@ class MyPromise {
 
     if (x instanceof MyPromise) {
       x.then(
-
+        (y) => {
+          this.resolvePromise(newPromise, y, resolve, reject)
+        },
+        reject
       )
     } else if (typeof x === 'object' || this.isFunction(x)) {
       if (x === null) {
@@ -168,6 +175,16 @@ class MyPromise {
 
 const promise = new MyPromise((resolve, reject) => {
   setTimeout(() => {
-    resolve(1);
+    reject(1);
   }, 1000);
-}).then(console.log);
+}).then((value) => {
+  console.log('SUCCESS: ' + value);
+  console.log(promise);
+}).catch((reason) => {
+  console.log('ERROR: ' + reason);
+  console.log(promise);
+})
+console.log(promise);
+setTimeout(()=>{
+  console.log(promise);
+}, 2000)
