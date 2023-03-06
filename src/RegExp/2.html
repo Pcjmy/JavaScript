@@ -13,6 +13,35 @@
 
     // 用正则表达式进行检查
     console.log(/^[by]\d{7}$/.test(str));
+
+    // 1. 请验证某字符串是否是5位字母，大小写均可
+
+    let str1 = 'ABCDE';
+    let str2 = 'abcDE';
+    let str3 = '123DE';
+
+    console.log(/^[a-zA-Z]{5}$/.test(str1));
+    console.log(/^[a-zA-Z]{5}$/.test(str2));
+    console.log(/^[a-zA-Z]{5}$/.test(str3));
+
+    // 2. 请验证某字符串是否是5位，且仅有小写字母、点构成
+
+    let str4 = 'abcd.';
+    let str5 = '.abcd';
+    let str6 = '123AB';
+
+    console.log(/^[a-z/.]{5}$/.test(str4));
+    console.log(/^[a-z/.]{5}$/.test(str5));
+    console.log(/^[a-z/.]{5}$/.test(str6));
+
+    // 3. 请验证某字符串是否是4位小写字母，且最后一位不能是m字母
+    let str7 = 'abcd';
+    let str8 = 'abce';
+    let str9 = 'abcm';
+
+    console.log(/^[a-z]{3}[a-ln-z]$/.test(str7));
+    console.log(/^[a-z]{3}[a-ln-z]$/.test(str8));
+    console.log(/^[a-z]{3}[a-ln-z]$/.test(str9));
   </script>
 </body>
 </html>
