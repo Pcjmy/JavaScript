@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // js每隔一秒打印1,2,3,4,5
+    function print(x) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(x);
+          resolve();
+        }, 1000)
+      })
+    }
+
+    function solve() {
+      print(1)
+      .then(() => {
+        return print(2)
+      })
+      .then(() => {
+        return print(3)
+      })
+      .then(() => {
+        return print(4)
+      })
+      .then(() => {
+        return print(5)
+      })
+    }
+    
+    solve();
+  </script>
+</body>
+</html>
