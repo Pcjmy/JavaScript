@@ -21,15 +21,22 @@
   <div id="box3"></div>
   <script>
     // 事件处理函数的上下文是绑定事件的DOM元素
-    // 点击哪个盒子，哪个盒子就变红，要求使用同一个事件处理函数实现
+    // 点击哪个盒子，哪个盒子在2000毫秒后就变红，要求使用同一个事件处理函数实现
     function setColorToRed() {
-      this.style.backgroundColor = 'red';
+      setTimeout(() => {
+        this.style.backgroundColor = 'red';
+      }, 2000)
     }
+    // function setColorToRed() {
+    //   // 备份上下文
+    //   let self = this;
+    //   setTimeout(() => {
+    //     this.style.backgroundColor = 'red';
+    //   }, 2000)
+    // }
     let box1 = document.getElementById('box1');
     let box2 = document.getElementById('box2');
     let box3 = document.getElementById('box3');
-
-    console.log(box1);
 
     box1.onclick = setColorToRed;
     box2.onclick = setColorToRed;
