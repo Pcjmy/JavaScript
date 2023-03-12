@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 1.请验证字符串是否符合手机号码的规则：11位数字，并且肯定以1开头
+
+    let str1 = '15236072935';
+    let str2 = '1234567890';
+    let str3 = '1111111111';
+    console.log(/^1\d{10}$/.test(str1))
+    console.log(/^1\d{10}$/.test(str2))
+    console.log(/^1\d{10}$/.test(str3))
+
+    // 2.请验证某字符串是否是这样的：以字母开头，中间是任意位数字(最少1位)构成，并以字母结尾
+
+    let str4 = 'H2O';
+    let str5 = 'abc';
+    let str6 = '123';
+    console.log(/^[A-Za-z]\d+[A-Za-z]$/.test(str4))
+    console.log(/^[A-Za-z]\d+[A-Za-z]$/.test(str5))
+    console.log(/^[A-Za-z]\d+[A-Za-z]$/.test(str6))
+
+    // 3.请验证某字符串是否符合网址规则：以www.开头，中间是任意位的字符（字母数字下划线)，最后以.com结尾也可以以.com.cn结尾
+
+    let str7 = 'www.baidu.com';
+    let str8 = 'www.acwing.com';
+    let str9 = 'abc';
+    console.log(/^www\.\w+\.com(\.cn)?$/.test(str7))
+    console.log(/^www\.\w+\.com(\.cn)?$/.test(str8))
+    console.log(/^www\.\w+\.com(\.cn)?$/.test(str9))
+  </script>
+</body>
+</html>
