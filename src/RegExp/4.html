@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // exec()方法最有趣的是，有"g"修饰符的正则表达式将自动成为"有状态"的，
+    // 这意味着可以对单个字符串中的多次匹配结果进行逐条的遍历
+
+    let str = 'abc123def456ghi789';
+    let regexp = /\d+/g;
+    let result;
+    while (result = regexp.exec(str)) {
+      console.log(result);
+    }
+  </script>
+</body>
+</html>
