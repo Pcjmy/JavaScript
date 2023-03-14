@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let testArray = [0];
+    function test(data, key, val) {
+      Object.defineProperty(data, key, {
+        get() {
+          console.log(val);
+        },
+        set(newV) {
+          if (newV !== val) {
+            val = newV;
+            console.log('检测到变更');
+            console.log(val);
+          }
+        },
+      });
+    }
+    test(testArray, 0, testArray[0]);
+
+    testArray[0] = 1
+
+  </script>
+</body>
+</html>
