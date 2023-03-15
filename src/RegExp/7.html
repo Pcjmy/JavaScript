@@ -19,10 +19,17 @@
       <input type="text" id="nameField">
       <span class="warning" id="nameWarning">输入的姓名不合法</span>
     </p>
+    <p>
+      请输入手机号码：
+      <input type="text" id="telField">
+      <span class="warning" id="telWarning">输入的手机号码不合法</span>
+    </p>
   </div>
   <script>
     let nameField = document.getElementById('nameField');
+    let telField = document.getElementById('telField');
     let nameWarning = document.getElementById('nameWarning');
+    let telWarnging = document.getElementById('telWarning');
 
     nameField.onblur = function() {
       let name = nameField.value;
@@ -30,6 +37,15 @@
         nameWarning.style.display = 'none';
       } else {
         nameWarning.style.display = 'inline'; 
+      }
+    }
+
+    telField.onblur = function() {
+      let tel = telField.value;
+      if(/^1\d{10}$/.test(tel)) {
+        telWarnging.style.display = 'none';
+      } else {
+        telWarning.style.display = 'inline';
       }
     }
   </script>
