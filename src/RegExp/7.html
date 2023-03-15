@@ -24,6 +24,11 @@
       <input type="text" id="telField">
       <span class="warning" id="telWarning">输入的手机号码不合法</span>
     </p>
+    <p>
+      请输入Email：
+      <input type="text" id="emailField">
+      <span class="warning" id="emailWarning">输入的Email不合法</span>
+    </p>
   </div>
   <script>
     let nameField = document.getElementById('nameField');
@@ -46,6 +51,15 @@
         telWarnging.style.display = 'none';
       } else {
         telWarning.style.display = 'inline';
+      }
+    }
+
+    emailField.onblur = function() {
+      let email = emailField.value;
+      if(/^\w{2,}\@\w{2,}\.[a-z]{2,4}(\.[a-z]{2,4})?$/.test(email)) {
+        emailWarning.style.display = 'none';
+      } else {
+        emailWarning.style.display = 'inline';
       }
     }
   </script>
