@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .warning {
+      color: red;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>
+      请输入中文姓名：
+      <input type="text" id="nameField">
+      <span class="warning" id="nameWarning">输入的姓名不合法</span>
+    </p>
+  </div>
+  <script>
+    let nameField = document.getElementById('nameField');
+    let nameWarning = document.getElementById('nameWarning');
+
+    nameField.onblur = function() {
+      let name = nameField.value;
+      if (/^[\u4E00-\u9FA5]{2,4}$/.test(name)) {
+        nameWarning.style.display = 'none';
+      } else {
+        nameWarning.style.display = 'inline'; 
+      }
+    }
+  </script>
+</body>
+</html>
