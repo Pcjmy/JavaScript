@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box1 {
+      background-color: yellow;
+    }
+
+    #box2 {
+      background-color: aqua;
+    }
+  </style>
+</head>
+<body>
+  <div id="box1">
+    <ul>
+      <li>牛奶</li>
+      <li>咖啡</li>
+      <li>可乐</li>
+    </ul>
+  </div>
+
+  <div id="box2"></div>
+
+  <script>
+    let box1 = document.getElementById('box1');
+    let box2 = document.getElementById('box2');
+    let ul = document.getElementsByTagName('ul')[0];
+    let cloneul = ul.cloneNode(true); // true表示采用深度克隆
+    box2.appendChild(cloneul);
+  </script>
+</body>
+</html>
