@@ -1,8 +1,8 @@
-function curry(fn: Function) {
+function curry(fn) {
   const fnArgsLength = fn.length
-  let args: any[] = []
+  let args = []
 
-  function calc(this: any, ...newArgs: any[]) {
+  function calc(...newArgs) {
     args = [
       ...args,
       ...newArgs
@@ -17,7 +17,7 @@ function curry(fn: Function) {
   return calc
 }
 
-function add(a: number, b: number, c: number): number {
+function add(a, b, c) {
   return a+b+c;
 }
 
