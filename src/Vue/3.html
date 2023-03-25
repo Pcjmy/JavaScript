@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let product = {
+      price: 10,
+      quantity: 2
+    }
+
+    const proxyProduct = new Proxy(product, {
+      set(target, key, newVal, recevier) {
+        console.log('setter')
+        target[key] = newVal
+        effect()
+        return true
+      },
+      get(target, key, recevier) {
+        console.log('getter')
+        return target[key]
+      }
+    })
+
+    let total = 0
+    let effect = () => {
+      total = proxyProduct.price * proxyProduct.quantity
+    }
+  </script>
+</body>
+</html>
