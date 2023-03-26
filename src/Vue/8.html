@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      height: 60px;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      background: gray;
+      color: white;
+    }
+
+    a:link,
+    a:hover,
+    a:active,
+    a:visited {
+      text-decoration: none;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/blue">蓝色</a>
+    <a href="/green">绿色</a>
+    <a href="/">白色</a>
+    <button onclick="window.history.go(-1)">返回</button>
+  </div>
+
+  <script>
+    class BaseRouter {
+
+      constructor() {
+        this.routes = {}
+        this.init(location.pathname)
+        this.bindPopstate()
+      }
+
+      init(path) {
+        window.history.replaceState({
+          path
+        }, null, path)
+        this.invokePathCallback(path)
+      }
+
+      route(path, callback) {
+        this.routes[path] = callback || function () {}
+      }
+
+      go(path) {
+        window.history.pushState({
+          path
+        }, null, path)
+        this.invokePathCallback(path)
+      }
+
+      invokePathCallback(path) {
+        const cb = this.routes[path]
+        cb && cb()
+      }
+
+      bindPopstate() {
+        window.addEventListener('popstate', e => {
+          const path = e.state && e.state.path
+          this.invokePathCallback(path)
+        })
+      }
+    }
+
+    const body = document.querySelector('body')
+    const container = document.querySelector('.container')
+
+    function changeBgColor(color) {
+      body.style.backgroundColor = color
+    }
+
+    const Router = new BaseRouter()
+
+    Router.route('/', function() {
+      changeBgColor('white')
+    })
+
+    Router.route('/green', function() {
+      changeBgColor('green')
+    })
+
+    Router.route('/blue', function() {
+      changeBgColor('blue')
+    })
+
+    container.addEventListener('click', e => {
+      if (e.target.tagName === 'A') {
+        e.preventDefault()
+        Router.go(e.target.getAttribute('href'))
+      }
+    })
+  </script>
+</body>
+</html>
