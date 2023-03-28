@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 返回值
+    // 1. 如果构造函数没有显式的返回值，那么返回this
+    // 2. 如果构造函数有显式的返回值，是基本类型，number string boolean，那么还是返回this
+    // 3. 如果构造构造函数有显式的返回值，是对象类型，返回这个对象
+    function newObj() {
+      let obj = Object.create(null)
+      let FunctionConstructor = [].shift.call(arguments)
+      obj.__proto__ = FunctionConstructor.prototype
+      let resultObj = FunctionConstructor.apply(obj, arguments)
+      return typeof resultObj === 'object' ? resultObj : obj
+    }
+
+    function Node(val, next) {
+      this.val = val ? val : null
+      this.next = next ? next: null
+    }
+
+    let node = newObj(Node, 1, null)
+    console.log(node)
+  </script>
+</body>
+</html>
