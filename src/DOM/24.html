@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box {
+      position: absolute;
+      left: 200px;
+      top: 200px;
+      height: 200px;
+      width: 200px;
+      background-color: orange;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+
+  <script>
+    let box = document.getElementById('box')
+    let l=200, t=200
+
+    document.onkeydown = function(e) {
+      switch(e.keyCode) {
+        case 37:
+          l -= 3
+          break
+        case 38:
+          t -= 3
+          break
+        case 39:
+          l += 3
+          break
+        case 40:
+          t += 3
+          break
+      }
+
+      box.style.left = l + 'px'
+      box.style.top = t + 'px'
+    }
+  </script>
+</body>
+</html>
