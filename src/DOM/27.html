@@ -5,6 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #box {
+      height: 200px;
+      width: 200px;
+      background-color: orange;
+    }
+  </style>
 </head>
 <body>
   <div id="box">
@@ -15,14 +22,23 @@
     let box = document.getElementById('box')
     let btn = document.getElementById('btn')
 
-    box.onclick = function(e) {
-      console.log('box')
-    }
+    // box.onclick = function(e) {
+    //   console.log('box')
+    // }
 
-    btn.onclick = function(e) {
+    // btn.onclick = function(e) {
+    //   e.stopPropagation()
+    //   console.log('button')
+    // }
+
+    box.addEventListener('click', function(e) {
       e.stopPropagation()
+      console.log('box')
+    }, true)
+
+    btn.addEventListener('click', function() {
       console.log('button')
-    }
+    }, true)
   </script>
 </body>
 </html>
