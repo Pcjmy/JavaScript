@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .modal {
+      height: 140px;
+      width: 400px;
+      background-color: orange;
+      position: absolute;
+      margin-left: -200px;
+      margin-top: -70px;
+      top: 50%;
+      left: 50%;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn">click</button>
+  <div class="modal" id="modal"></div>
+
+  <script>
+    let btn = document.getElementById('btn')
+    let modal = document.getElementById('modal')
+
+    btn.onclick = function(e) {
+      e.stopPropagation()
+      modal.style.display = 'block'
+    }
+
+    document.onclick = function() {
+      modal.style.display = 'none'
+    }
+
+    modal.onclick = function(e) {
+      e.stopPropagation()
+    }
+  </script>
+</body>
+</html>
