@@ -9,13 +9,21 @@
 <body>
   <input type="text" id="field" />
   <h1 id="info"></h1>
+  <input type="text" id="field1">
+  <h1 id="info1"></h1>
 
   <script>
     let field = document.getElementById('field')
     let info = document.getElementById('info')
+    let field1 = document.getElementById('field1')
+    let info1 = document.getElementById('info1')
 
     field.onkeypress = function(e) {
       info.innerText = '你输入的字符的字符码是' + e.charCode
+    }
+
+    field1.onkeydown = function(e) {
+      info1.innerText = '你按下的按键的键码是' + e.keyCode
     }
   </script>
 </body>
