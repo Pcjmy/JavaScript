@@ -17,7 +17,8 @@
   <script>
     let list = document.getElementById('list')
 
-    list.onclick = function(e) {
+    // onmouseenter不冒泡，onmouseover冒泡
+    list.onmouseover = function(e) {
       // e.target表示用户真正点击的那个元素
       e.target.style.color = 'red'
     }
