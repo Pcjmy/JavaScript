@@ -7,37 +7,21 @@
   <title>Document</title>
 </head>
 <body>
-  <ul id="list">
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-    <li>列表项</li>
-  </ul>
+  <button id="btn">click</button>
+  <ul id="list"></ul>
 
   <script>
+    let btn = document.getElementById('btn')
     let list = document.getElementById('list')
-    let li = list.getElementsByTagName('li')
 
-    for(let i=0;i<li.length;i++) {
-      li[i].onclick = function() {
+    btn.onclick = function() {
+      console.log('click')
+      let li = document.createElement('li')
+      li.innerHTML = '列表项'
+      li.onclick = function() {
         this.style.color = 'red'
       }
+      list.appendChild(li)
     }
   </script>
 </body>
