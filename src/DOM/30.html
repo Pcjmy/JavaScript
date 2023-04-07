@@ -7,6 +7,7 @@
   <title>Document</title>
 </head>
 <body>
+  <button id="btn">click</button>
   <ul id="list">
     <li>列表项</li>
     <li>列表项</li>
@@ -19,6 +20,12 @@
     list.onclick = function(e) {
       // e.target表示用户真正点击的那个元素
       e.target.style.color = 'red'
+    }
+
+    btn.onclick = function() {
+      let li = document.createElement('li')
+      li.innerText = '列表项'
+      list.appendChild(li)
     }
   </script>
 </body>
