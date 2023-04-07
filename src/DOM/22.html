@@ -33,8 +33,9 @@
     let info=document.getElementById('info')
 
     box.onmousemove = function(e) {
-      info.innerHTML = 'offsetX/Y: ' + e.offsetX + ',' + e.offsetY +'<br>'
-                     + 'clientX/Y: ' + e.clientX + ',' + e.clientY
+      info.innerHTML = 'offsetX/Y: ' + e.offsetX + ',' + e.offsetY + '<br>'
+                     + 'clientX/Y: ' + e.clientX + ',' + e.clientY + '<br>'
+                     + 'pageX/Y: ' + e.pageX + ',' + e.pageY
     }
   </script>
 </body>
