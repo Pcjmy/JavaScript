@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box">
+    <button id="btn">click</button>
+  </div>
+
+  <script>
+    let box = document.getElementById('box')
+    let btn = document.getElementById('btn')
+
+    box.onclick = function(e) {
+      console.log('box')
+    }
+
+    btn.onclick = function(e) {
+      e.stopPropagation()
+      console.log('button')
+    }
+  </script>
+</body>
+</html>
