@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box {
+      height: 200px;
+      width: 200px;
+      background-color: orange;
+    }
+    
+    body {
+      height: 2000px;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <h1 id="info"></h1>
+
+  <script>
+    let box = document.getElementById('box')
+    let info = document.getElementById('info')
+
+    let a = 0
+
+    box.onmousewheel = function(e) {
+      e.preventDefault()
+      if (e.deltaY > 0) {
+        a--
+      } else {
+        a++
+      }
+      info.innerText = a
+    }
+  </script>
+</body>
+</html>
