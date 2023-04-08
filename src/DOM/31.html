@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      user-select: none;
+    }
+
+    #draggable {
+      text-align: center;
+      background-color: white;
+    }
+
+    .dropzone {
+      height: 20px;
+      width: 200px;
+      background: blueviolet;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dropzone">
+    <div id="draggable" draggable="true">
+      这个div可以拖动
+    </div>
+  </div>
+  <div class="dropzone" id="droptarget"></div>
+
+  <script>
+    let dragged = null
+
+    const source = document.getElementById('draggable')
+    source.addEventListener('dragstart', (event) => {
+      // store a ref. on the dragged elem
+      dragged = event.target
+    });
+
+    const target = document.getElementById('droptarget')
+    target.addEventListener('dragover', (event) => {
+      // prevent default to allow drop
+      event.preventDefault()
+    });
+
+    target.addEventListener('drop', (event) => {
+      // prevent default action (open as link for some elements)
+      event.preventDefault()
+      // move dragged element to the selected drop target
+      if (event.target.className === 'dropzone') {
+        dragged.parentNode.removeChild(dragged)
+        event.target.appendChild(dragged)
+      }
+    });
+  </script>
+</body>
+</html>
