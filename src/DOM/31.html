@@ -50,6 +50,7 @@
     target.addEventListener('drop', (event) => {
       // prevent default action (open as link for some elements)
       event.preventDefault()
+      console.log('dataTransfer', event.dataTransfer)
       // move dragged element to the selected drop target
       if (event.target.className === 'dropzone') {
         dragged.parentNode.removeChild(dragged)
