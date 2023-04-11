@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box {
+      height: 200px;
+      width: 200px;
+      background-color: aqua;
+      margin-top: 1000px;
+    }
+
+    body {
+      height: 2000px;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+
+  <script>
+    function isInViewPortOfOne(el) {
+      // viewPortHeight 兼容所有浏览器写法
+      const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      const offsetTop = el.offsetTop
+      const scrollTop = document.documentElement.scrollTop
+      const top = offsetTop - scrollTop
+      console.log(offsetTop, scrollTop, top)
+      // console.log('top', top)
+      // 这里有个+100是为了提前加载+ 100
+      return top >= -100 && top <= viewPortHeight + 100
+    }
+
+    let box = document.getElementById('box')
+    
+    setInterval(() => {
+      console.log(isInViewPortOfOne(box))
+    }, 1000)
+  </script>
+</body>
+</html>
