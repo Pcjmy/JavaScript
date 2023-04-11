@@ -8,17 +8,17 @@
 </head>
 <body>
   <script>
-    Promise.myAll = (promise) => {
+    Promise.myAll = (promises) => {
       return new Promise((resolve, reject) => {
-        let len = promise.length
-        let result = []
-        let cnt = 0
-        promise.forEach((p,i) => {
-          Promise.resolve(p).then((res) => {
-            cnt += 1
-            result[i] = res
-            if(cnt === len) {
-              resolve(result)
+        let cnt  = 0
+        let res = []
+        let n = promises.length
+        promises.forEach((p,i) => {
+          Promise.resolve(p).then(result => {
+            res[i] = result
+            cnt ++
+            if (cnt === n) {
+              resolve(res)
             }
           }).catch(reject)
         })
