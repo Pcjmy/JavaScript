@@ -1,31 +1,31 @@
 const { urls, loadImg } = require('./mock')
 
 class PromiseQueue {
-  constructor(options = {}) {
-    this.concurrency = options.concurrency || 1
-    this.currentCount = 0
-    this.pendingList = [] 
+  constructor(limit) {
+    this.limit = limit
+    this.cnt = 0
+    this.list = []
   }
   add(task) {
-    this.pendingList.push(task)
+    this.list.push(task)
     this.run()
   }
   run() {
-    if (this.pendingList.length === 0 || this.concurrency === this.currentCount) {
-      return ;
+    if (this.list.length === 0 || this.cnt === this.limit) {
+      return
     }
-    this.currentCount ++
-    const fn = this.pendingList.shift()
+    this.cnt ++
+    const fn = this.list.shift()
     const promise = fn()
-    promise.then(this.completeOne.bind(this)).catch(this.completeOne.bind(this))
+    promise.then(this.complete.bind(this)).catch(this.complete.bind(this))
   }
-  completeOne() {
-    this.currentCount--
+  complete() {
+    this.cnt--
     this.run()
   }
 }
 
-const queue = new PromiseQueue({ concurrency: 3 })
+const queue = new PromiseQueue(3)
 urls.forEach(url => {
   queue.add(() => loadImg(url))
 })
