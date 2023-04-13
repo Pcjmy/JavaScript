@@ -10,9 +10,9 @@
   <script>
     function MyPromiseAll(promises, limit) {
       return new Promise((resolve, reject) => {
-        let cnt = 0
         let n = promises.length
-        let res = new Array(n)
+        let res = []
+        let cnt = 0
         let index = 0
 
         function step(i) {
@@ -30,7 +30,7 @@
           index++
         }
 
-        for(let i=0 ; i<limit ; i++) {
+        for(let i=0;i<limit;i++) {
           step(i)
         }
       })
