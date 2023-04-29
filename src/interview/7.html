@@ -23,7 +23,7 @@
 
         let obj = {}
         if (Array.isArray(target)) {
-          target = []
+          obj = []
         }
         arr.push({
           target,
@@ -42,14 +42,35 @@
       return _deepClone(target)
     }
 
-    let obj1 = {
-      age: 18,
-      name: 'hello'
-    }
-    let obj2 = deepClone(obj1)
-    obj2.name = 'xyz'
-    console.log(obj1)
-    console.log(obj2)
+    /* 测试用例1 */
+    const book = {
+      title: "You Don't Know JS",
+      price: 45,
+    };
+    const arr = [[0], 1];
+    const originObj = {
+      book: book,
+      arr: arr,
+      attr1: undefined,
+      attr2: null,
+      attr3: 123,
+      attr4: 'haha',
+    };
+    const clonedObj = deepClone(originObj);
+    originObj.book.price = 0;
+    console.log(clonedObj.book.price); // 应为45
+    arr[0].push(3);
+    console.log(clonedObj.arr); // 应为[[0], 1]
+    console.log(deepClone(1)); // 应为1
+
+
+    /* 测试用例2（加分项1） */
+    const book2 = {
+      title: "You Don't Know JS",
+      price: 45,
+    };
+    book2.circular = book2;
+    console.log(deepClone(book2).title) // 应为"You Don't Know JS"
   </script>
 </body>
 </html>
