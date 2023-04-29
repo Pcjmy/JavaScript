@@ -17,4 +17,4 @@ s.fn2()
 
 const s1 = SingleTon.getInstance()
 
-s===s1 // true
+s === s1 // true
