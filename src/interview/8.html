@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 并发限制
+    class Scheduler {
+      constructor(max) {
+        this.max = max
+        this.queue = []
+        this.count = 0
+      }
+      async add(fn) {
+        if (this.count >= this.max) {
+          await new Promise(resolve => this.queue.push(resolve))
+        }
+        this.count++
+        const res = await fn()
+        this.count--
+        this.queue.length && this.queue.shift()
+        return res
+      }
+    }
+  </script>
+</body>
+</html>
