@@ -26,7 +26,9 @@ const server = net.createServer((socket) => {
     console.log(headers);
 
     socket.on('data', (buffer) => {
-      console.log(buffer);
+      const a = buffer[0];
+      const fin = a&127;
+      console.log(fin);
     })
   });
 
