@@ -6,11 +6,89 @@
   <title>Document</title>
 </head>
 <body>
-  <video controls preload loop width="500" height="300">
-    <source src="1.mp4" type="video/mp4" />
-    <source src="1.ogg" type="video/mp4" />
-    <source src="1.webm" type="video/mp4" />
-    当前浏览器不支持Video标签
-  </video>
+  <div>
+    <video src="video1.mp4" controls width="800" height="500" id="vd"></video>
+  </div>
+  <button class="btn">重载</button>
+  <button class="btn">播放</button>
+  <button class="btn">暂停</button>
+  <button class="btn">获取当前时间</button>
+  <button class="btn">获取视频总时长</button>
+  <button class="btn">获取播放状态</button>
+  <button class="btn">设置静音</button>
+  <button class="btn">设置音量</button>
+  <button class="btn">设置播放倍数</button>
+  <button class="btn">播放/暂停</button>
+
+  <script type="text/javascript">
+    var oLoadBtn = document.getElementsByClassName('btn')[0];
+    var oPlayBtn = document.getElementsByClassName('btn')[1];
+    var oPauseBtn = document.getElementsByClassName('btn')[2];
+    var oGetCurrentTime = document.getElementsByClassName('btn')[3];
+    var oGetDuration = document.getElementsByClassName('btn')[4];
+    var oGetPlayStatus = document.getElementsByClassName('btn')[5];
+    var oSetMuted = document.getElementsByClassName('btn')[6];
+    var oSetVolume = document.getElementsByClassName('btn')[7];
+    var oSetPlayRate = document.getElementsByClassName('btn')[8];
+    var oPlayAndPause = document.getElementsByClassName('btn')[9];
+    var oVd = document.getElementById('vd');
+
+    oLoadBtn.onclick = function() {
+      oVd.load(); // 重新加载视频资源
+    }
+
+    oPlayBtn.onclick = function() {
+      oVd.play();
+    }
+
+    oPauseBtn.onclick = function() {
+      oVd.pause();
+    }
+
+    oGetCurrentTime.onclick = function() {
+      console.log(oVd.currentTime);
+    }
+
+    oGetDuration.onclick = function() {
+      console.log(oVd.duration);
+    }
+
+    oGetPlayStatus.onclick = function() {
+      if (oVd.paused) {
+        console.log('暂停中...');
+      } else {
+        console.log('播放中...');
+      }
+    }
+
+    oPlayAndPause.onclick = function() {
+      console.log('click');
+      if (oVd.paused) {
+        oVd.play();
+      } else {
+        oVd.pause();
+      }
+    }
+
+    oSetMuted.onclick = function() {
+      if (oVd.muted) {
+        oVd.muted = false;
+      } else {
+        oVd.muted = true;
+      }
+    }
+
+    oSetVolume.onclick = function() {
+      console.log(oVd.volume);
+      oVd.volume = 0.6;
+      console.log(oVd.volume);
+    }
+
+    oSetPlayRate.onclick = function() {
+      console.log(oVd.playbackRate);
+      oVd.playbackRate = 2;
+      console.log(oVd.playbackRate);
+    }
+  </script>
 </body>
 </html>
