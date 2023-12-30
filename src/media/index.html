@@ -89,6 +89,43 @@
       oVd.playbackRate = 2;
       console.log(oVd.playbackRate);
     }
+
+    oVd.addEventListener('canplay', function() {
+      console.log('canplay');
+    }, false);
+
+    oVd.addEventListener('ended', function() {
+      console.log('ended');
+    }, false);
+
+    oVd.addEventListener('error', function() {
+      console.log('error');
+    }, false);
+
+    oVd.addEventListener('play', function() {
+      console.log('playing');
+      console.log(oVd.buffered.end(0), oVd.duration);
+    }, false);
+
+    oVd.addEventListener('seeked', function() {
+      console.log('seeked');
+    }, false);
+
+    oVd.addEventListener('seeking', function() {
+      console.log('seeking');
+    }, false);
+
+    oVd.addEventListener('ratechange', function() {
+      console.log(this.playbackRate);
+    }, false);
+
+    oVd.addEventListener('volumechange', function() {
+      console.log(this.volume);
+    }, false);
+
+    oVd.addEventListener('waiting', function() {
+      console.log('waiting');
+    }, false);
   </script>
 </body>
 </html>
