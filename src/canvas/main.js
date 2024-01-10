@@ -9,11 +9,13 @@ console.log(ctx);
 // ctx.strokeRect(300, 300, 100, 100);
 
 // canvas绘制三角形
-// ctx.moveTo(50, 50);
-// ctx.lineTo(100, 100);
-// ctx.lineTo(50, 100);
-// ctx.lineTo(50,50);
-// ctx.stroke();
+ctx.lineWidth = 2;
+ctx.strokeStyle = 'aqua';
+ctx.moveTo(50, 50);
+ctx.lineTo(100, 100);
+ctx.lineTo(50, 100);
+ctx.lineTo(50,50);
+ctx.stroke();
 
 // canvas绘制弧形
 // arc(x, y, radius, startAngle, endAngle, anticlockwise)
