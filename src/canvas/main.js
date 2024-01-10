@@ -5,5 +5,9 @@ console.log(canvas);
 const ctx = canvas.getContext('2d');
 console.log(ctx);
 
-ctx.fillRect(100, 100, 100, 100);
-ctx.strokeRect(300, 300, 100, 100);
+// ctx.fillRect(100, 100, 100, 100);
+// ctx.strokeRect(300, 300, 100, 100);
+
+ctx.moveTo(50, 50);
+ctx.lineTo(100, 100);
+ctx.stroke();
