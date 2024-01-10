@@ -17,6 +17,8 @@ console.log(ctx);
 
 // canvas绘制弧形
 // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+ctx.lineWidth = 3;
+ctx.strokeStyle = 'red';
 ctx.beginPath();
 ctx.arc(200, 200, 50, 0, 2 * Math.PI);
 ctx.stroke();
