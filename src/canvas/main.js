@@ -10,16 +10,18 @@ console.log(ctx);
 
 // canvas绘制三角形
 // 透明度
-ctx.globalAlpha = 0.2;
-ctx.lineWidth = 1;
+// ctx.globalAlpha = 0.2;
+ctx.lineCap = 'round';
+ctx.lineJoin = 'round';
+ctx.lineWidth = 2;
 // ctx.strokeStyle = 'aqua';
 ctx.moveTo(50, 50);
 ctx.lineTo(100, 100);
 ctx.lineTo(50, 100);
 // ctx.lineTo(50,50);
-// ctx.closePath();
+ctx.closePath();
 // 根据当前的填充样式，填充当前或已存在的路径的方法
-ctx.fill();
+// ctx.fill();
 ctx.stroke();
 
 // canvas绘制弧形
@@ -27,5 +29,5 @@ ctx.stroke();
 ctx.lineWidth = 3;
 ctx.strokeStyle = 'red';
 ctx.beginPath();
-ctx.arc(200, 200, 50, 0, 2 * Math.PI);
+ctx.arc(200, 200, 50, 0, Math.PI / 2);
 ctx.stroke();
