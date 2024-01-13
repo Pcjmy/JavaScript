@@ -1,33 +1,13 @@
 const canvas = document.getElementById('myCanvas');
-canvas.style.border = '2px solid black';
-console.log(canvas);
+canvas.width = 500;
+canvas.height = 500;
+canvas.style.border = '1px solid black';
 
 const ctx = canvas.getContext('2d');
-console.log(ctx);
-
-// ctx.fillRect(100, 100, 100, 100);
-// ctx.strokeRect(300, 300, 100, 100);
-
-// canvas绘制三角形
-// 透明度
-// ctx.globalAlpha = 0.2;
+ctx.moveTo(100, 100);
+ctx.lineWidth = 5;
 ctx.lineCap = 'round';
-ctx.lineJoin = 'round';
-ctx.lineWidth = 2;
-// ctx.strokeStyle = 'aqua';
-ctx.moveTo(50, 50);
-ctx.lineTo(100, 100);
-ctx.lineTo(50, 100);
-// ctx.lineTo(50,50);
-ctx.closePath();
-// 根据当前的填充样式，填充当前或已存在的路径的方法
-// ctx.fill();
-ctx.stroke();
-
-// canvas绘制弧形
-// arc(x, y, radius, startAngle, endAngle, anticlockwise)
-ctx.lineWidth = 3;
-ctx.strokeStyle = 'red';
-ctx.beginPath();
-ctx.arc(200, 200, 50, 0, Math.PI / 2);
+ctx.arc(90, 100, 10, 0, 2 * Math.PI);
+ctx.moveTo(90 + 10 * Math.sin(Math.PI / 4), 100 + 10 * Math.sin(Math.PI / 4));
+ctx.lineTo(106, 116);
 ctx.stroke();
