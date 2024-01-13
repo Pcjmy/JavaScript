@@ -9,6 +9,8 @@ console.log(ctx);
 // ctx.strokeRect(300, 300, 100, 100);
 
 // canvas绘制三角形
+// 透明度
+ctx.globalAlpha = 0.2;
 ctx.lineWidth = 1;
 // ctx.strokeStyle = 'aqua';
 ctx.moveTo(50, 50);
