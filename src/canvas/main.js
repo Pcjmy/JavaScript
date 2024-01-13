@@ -9,13 +9,15 @@ console.log(ctx);
 // ctx.strokeRect(300, 300, 100, 100);
 
 // canvas绘制三角形
-ctx.lineWidth = 5;
-ctx.strokeStyle = 'aqua';
+ctx.lineWidth = 1;
+// ctx.strokeStyle = 'aqua';
 ctx.moveTo(50, 50);
 ctx.lineTo(100, 100);
 ctx.lineTo(50, 100);
 // ctx.lineTo(50,50);
-ctx.closePath();
+// ctx.closePath();
+// 根据当前的填充样式，填充当前或已存在的路径的方法
+ctx.fill();
 ctx.stroke();
 
 // canvas绘制弧形
