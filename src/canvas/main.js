@@ -1,21 +1,35 @@
 const canvas = document.getElementById('myCanvas');
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = 500;
+canvas.height = 500;
 canvas.style.border = '1px solid black';
 
 const ctx = canvas.getContext('2d');
-ctx.lineWidth = 6;
-ctx.lineCap = 'round';
-ctx.moveTo(220, 200);
-ctx.arc(200, 200, 20, 0, 2 * Math.PI);
+ctx.save();
+ctx.lineWidth = 2;
+ctx.moveTo(100, 100);
+ctx.lineTo(150, 100);
 ctx.stroke();
 
-ctx.translate(200, 200);
-ctx.rotate(-(Math.PI / 180) * 90);
+ctx.save();
+ctx.beginPath();
+ctx.lineWidth = 6;
+ctx.moveTo(100, 120);
+ctx.lineTo(150, 120);
+ctx.stroke();
 
-for (let i = 0; i < 8; i++) {
-  ctx.moveTo(30, 0);
-  ctx.lineTo(50,0);
-  ctx.stroke();
-  ctx.rotate((Math.PI / 180) * 45);
-}
+ctx.save();
+ctx.beginPath();
+ctx.lineWidth = 10;
+ctx.moveTo(100, 150);
+ctx.lineTo(150, 150);
+ctx.stroke();
+
+ctx.save();
+ctx.beginPath();
+ctx.lineWidth = 12;
+ctx.moveTo(100, 170);
+ctx.lineTo(150, 170);
+ctx.restore();
+ctx.restore();
+ctx.restore();
+ctx.stroke();
