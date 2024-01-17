@@ -1,15 +1,28 @@
 const canvas = document.getElementById('myCanvas');
 
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-canvas.style.border = '1px solid black';
+canvas.style.backgroundColor = 'black';
 
 const ctx = canvas.getContext('2d');
 
-const img = new Image();
-img.src = './assets/vip.png';
-
-img.onload = function() {
-  ctx.drawImage(img, 0, 0, img.width, img.height);
+function calcDrawStartPos(img) {
+  const x = (canvas.width - img.width) / 2;
+  const y = (canvas.height - img.height) / 2;
+  return {
+    x, y
+  }
 }
+
+const img1 = new Image();
+img1.src = './assets/0001.png';
+
+img1.onload = (e) => {
+  const startPos = calcDrawStartPos(e.target);
+  ctx.drawImage(e.target, startPos.x, startPos.y);
+}
+
+window.addEventListener('wheel', (e) => {
+  console.log(e.deltaY);
+})
