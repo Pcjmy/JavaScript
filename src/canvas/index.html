@@ -5,18 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    * {
+    /* * {
       margin: 0;
       padding: 0;
     }
 
     html {
       background: black;
+    } */
+    body{
+      display: flex;
+    }
+    #show-color{
+      display: flex;
+      flex-direction: column;
+      /* border:1px red solid; */
+      flex-grow: 2;
+      justify-content: center;
+      align-items: center;
+      gap:100px;
+    }
+    .color-box{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .color-circle{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 1px solid lightgray;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
 </head>
 <body>
   <canvas id="myCanvas">浏览器不支持canvas</canvas>
-  <script src="./main.js"></script>
+  <!-- <script src="./main.js"></script> -->
+  <div id="show-color">
+    <div class="color-box">
+      <span>当前颜色</span>
+      <div class="color-circle" id="show-color-circle"></div>
+    </div>
+    <div class="color-box">
+      <span>选中颜色</span>
+      <div class="color-circle" id="selected-color-circle"></div>
+    </div>
+  </div>
+  <script src="./pickColor.js"></script>
 </body>
 </html>
