@@ -6,21 +6,15 @@ canvas.height = 600;
 canvas.style.border = '1px solid black';
 
 const ctx = canvas.getContext('2d');
+const img = document.getElementById('img');
+const aaa = document.getElementById('aaa');
 
-const step = 1;
-const initPos = {
-  x: 200,
-  y: 200,
+const canvasImg = new Image();
+canvasImg.src = './assets/vip.png';
+
+canvasImg.onload = function () {
+  ctx.drawImage(canvasImg, 0, 0);
+  const data = canvas.toDataURL('image/png');
+  img.src = data;
+  aaa.href = data;
 }
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath();
-  ctx.moveTo(initPos.x + 20, initPos.y);
-  ctx.arc(initPos.x, initPos.y, 20, 0, 2 * Math.PI);
-  ctx.fill();
-  initPos.x += step;
-  requestAnimationFrame(draw);
-}
-
-draw();
