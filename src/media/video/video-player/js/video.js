@@ -79,51 +79,12 @@
     var m = parseInt(parseInt(second % 3600) / 60);
     var s = parseInt(second % 60);
     time = '';
-    if (h == 0) {
-      if (m >= 10) {
-        if (s >= 10) {
-          time = '00:' + m + ':' + s;
-        } else {
-          time = '00:' + m + ':0' + s;
-        }
-      } else {
-        if (s >= 10) {
-          time = '00:0' + m + ':' + s;
-        } else {
-          time = '00:0' + m + ':0' + s;
-        }
-      }
-    } else {
-      if (h >= 10) {
-        if (m >= 10) {
-          if (s >= 10) {
-            time = '0' + h + ':' + m + ':' +s;
-          } else {
-            time = '0' + h + ':' + m + ':0' + s;
-          }
-        } else {
-          if (s >= 10) {
-            time = '0' + h + ':0' + m + ':' + s;
-          } else {
-            time = '0' + h + ':0' + m + ':0' + s;
-          }
-        }
-      } else {
-        if (m >= 10) {
-          if (s >= 10) {
-            time = h + ':' + m + ':' + s;
-          } else {
-            time = h + ':' + m + ':0' + s;
-          }
-        } else {
-          if (s >= 10) {
-            time = h + ':0' + m + ':' + s;
-          } else {
-            time = h + ':0' + m + ':0' + s;
-          }
-        }
-      }
-    }
+
+    time += h >= 10 ? h : '0' + h;
+    time += ':';
+    time += m >= 10 ? m : '0' + m;
+    time += ':';
+    time += s >= 10 ? s : '0' + s;
 
     return time;
   }
