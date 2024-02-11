@@ -2,6 +2,7 @@
   var KSVideo = function (dom, opt) {
     this.videoBox = doc.getElementById(dom);
     this.vid = this.videoBox.getElementsByClassName('video-tag')[0];
+    this.oPlayBtn = this.videoBox.getElementsByClassName('play-img')[0];
 
     console.log(this.videoBox);
 
@@ -16,10 +17,11 @@
   KSVideo.prototype = {
     init: function () {
       this.setOptions();
+      this.bindEvent();
     },
 
     bindEvent: function() {
-
+      this.oPlayBtn.addEventListener('click', this.playVideo.bind(this), false);
     },
 
     setOptions: function() {
@@ -32,6 +34,16 @@
     setVolume: function(volume) {
       this.vid.volume = volume;
       console.log(this.vid.volume);
+    },
+
+    playVideo: function() {
+      if (this.vid.paused) {
+        this.oPlayBtn.src = 'assets/pause.png';
+        this.vid.play();
+      } else {
+        this.oPlayBtn.src = 'assets/play.png';
+        this.vid.pause();
+      }
     },
 
     setSrc: function() {
