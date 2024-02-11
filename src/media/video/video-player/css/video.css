@@ -148,6 +148,7 @@
 }
 
 .ks-video .control-bar .playrate-area {
+  display: none;
   position: relative;
   float: right;
   height: 50px;
@@ -204,6 +205,7 @@
 }
 
 .ks-video .control-bar .volume-area .volume-bar {
+  display: none;
   position: absolute;
   left: 0;
   top: -118px;
@@ -211,6 +213,10 @@
   height: 120px;
   padding: 12px 0;
   background-color: rgba(0, 0, 0, .7);
+}
+
+.ks-video .control-bar .volume-area .volume-bar.show {
+  display: block;
 }
 
 .ks-video .control-bar .volume-area .volume-bar span {

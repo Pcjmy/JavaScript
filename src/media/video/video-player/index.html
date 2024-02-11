@@ -9,9 +9,9 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="ks-video" id="ksVideo">
+    <div class="ks-video" id="js_KSVideo">
       <div class="vid-box">
-        <video src="../video1.mp4"></video>
+        <video src="../video1.mp4" class="video-tag"></video>
       </div>
       <div class="vid-hd">
         <h3 class="vid-tt">风景</h3>
@@ -40,7 +40,7 @@
           <a href="javascript:;" class="volume-btn">
             <img src="assets/volume.png" class="volume-img" alt="" />
           </a>
-          <div class="volume-bar">
+          <div class="volume-bar show">
             <span class="slide-bar">
               <span class="volume-slide">
                 <a href="javascript:;" class="round"></a>
@@ -61,5 +61,15 @@
       </div>
     </div>
   </div>
+
+  <script src="js/video.js"></script>
+  <script type="text/javascript">
+    var ksVideo = new KSVideo('js_KSVideo', {
+      src: '../video1.mp4',
+      autoplay: false,
+      preload: true,
+      volume: 50,
+    })
+  </script>
 </body>
 </html>
