@@ -7,6 +7,11 @@
     this.oPlayBtn = this.videoBox.getElementsByClassName('play-img')[0];
     this.oCurrentTime = this.videoBox.getElementsByClassName('current-time')[0];
     this.oDuration = this.videoBox.getElementsByClassName('duration')[0];
+    this.oRateArea = this.videoBox.getElementsByClassName('playrate-area')[0];
+    this.oRateBtn = this.videoBox.getElementsByClassName('playrate')[0];
+    this.oRateList = this.oRateArea.getElementsByClassName('playrate-list')[0];
+    this.oRateBtns = this.oRateList.getElementsByClassName('item');
+    this.oRateBtnsLen = this.oRateBtns.length;
 
     console.log(this.videoBox);
 
@@ -29,6 +34,9 @@
       this.vid.addEventListener('playing', this._playing.bind(this), false);
 
       this.oPlayBtn.addEventListener('click', this.playVideo.bind(this), false);
+      this.oRateBtn.addEventListener('click', this.showRateList.bind(this, true), false);
+      this.oRateArea.addEventListener('mouseleave', this.showRateList.bind(this, false), false);
+      this.oRateList.addEventListener('click', this.setPlayRate.bind(this), false);
     },
 
     setOptions: function() {
@@ -50,6 +58,32 @@
       } else {
         this.oPlayBtn.src = 'assets/play.png';
         this.vid.pause();
+      }
+    },
+
+    showRateList: function(show) {
+      if (show) {
+        this.oRateList.className += ' show';
+      } else {
+        this.oRateList.className = 'playrate-list';
+      }
+    },
+
+    setPlayRate: function() {
+      var e = e || window.event;
+      var tar = e.target || e.srcElement;
+      var className = tar.className;
+      var rateBtn;
+      
+      if (className === 'rate-btn') {
+        for (var i = 0; i < this.oRateBtnsLen; i++) {
+          rateBtn = this.oRateBtns[i].getElementsByClassName('rate-btn')[0];
+          rateBtn.className = 'rate-btn';
+        }
+
+        this.vid.playbackRate = tar.getAttribute('data-rate');
+        tar.className += ' current';
+        this.showRateList(false);
       }
     },
 

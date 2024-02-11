@@ -148,7 +148,7 @@
 }
 
 .ks-video .control-bar .playrate-area {
-  display: none;
+  display: block;
   position: relative;
   float: right;
   height: 50px;
@@ -172,11 +172,16 @@
 }
 
 .ks-video .control-bar .playrate-area .playrate-list {
+  display: none;
   position: absolute;
   left: 15px;
   top: -198px;
   width: 50px;
   background-color: rgba(0, 0, 0, .7);
+}
+
+.ks-video .control-bar .playrate-area .playrate-list.show {
+  display: block;
 }
 
 .ks-video .control-bar .playrate-area .playrate-list .item {
