@@ -264,3 +264,16 @@
 .ks-video .control-bar .volume-area .volume-bar .slide-bar .volume-slide .round:hover::before {
   display: block;
 }
+
+.ks-video .control-bar .fullscreen-area {
+  float: right;
+  width: 50px;
+  height: 50px;
+}
+
+.ks-video .control-bar .fullscreen-area .fullscreen-btn {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 16px 0 0 15px;
+}
