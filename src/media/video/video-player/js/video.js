@@ -96,6 +96,9 @@
       } else if (!this.muted && this.volumeBarShow) {
         this.setMuted(true);
         this.setVolume(0);
+      } else {
+        this.setMuted(false);
+        this.setVolume(this.volume);
       }
     },
 
