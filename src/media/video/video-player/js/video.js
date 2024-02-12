@@ -12,6 +12,10 @@
     this.oRateList = this.oRateArea.getElementsByClassName('playrate-list')[0];
     this.oRateBtns = this.oRateList.getElementsByClassName('item');
     this.oRateBtnsLen = this.oRateBtns.length;
+    this.oVolumeArea = this.videoBox.getElementsByClassName('volume-area')[0];
+    this.oVolumeBtn = this.oVolumeArea.getElementsByClassName('volume-img')[0];
+    this.oVolumeBar = this.oVolumeArea.getElementsByClassName('volume-bar')[0];
+    this.oVolumeSlide = this.oVolumeBar.getElementsByClassName('volume-slide')[0];
 
     console.log(this.videoBox);
 
@@ -19,6 +23,9 @@
     this.autoplay = opt.autoplay || false;
     this.preload = this.autoplay ? false : (opt.preload || false);
     this.volume = opt.volume / 100 || 1;
+
+    this.muted = false;
+    this.volumeBarShow = false;
 
     this.init();
   }
@@ -37,6 +44,7 @@
       this.oRateBtn.addEventListener('click', this.showRateList.bind(this, true), false);
       this.oRateArea.addEventListener('mouseleave', this.showRateList.bind(this, false), false);
       this.oRateList.addEventListener('click', this.setPlayRate.bind(this), false);
+      this.oVolumeBtn.addEventListener('click', this.btnSetVolume.bind(this), false);
     },
 
     setOptions: function() {
@@ -44,11 +52,6 @@
       this.vid.autoplay = this.autoplay;
       this.vid.preload = this.preload;
       this.setVolume(this.volume);
-    },
-
-    setVolume: function(volume) {
-      this.vid.volume = volume;
-      console.log(this.vid.volume);
     },
 
     playVideo: function() {
@@ -85,6 +88,42 @@
         tar.className += ' current';
         this.showRateList(false);
       }
+    },
+
+    btnSetVolume: function() {
+      if (!this.muted && !this.volumeBarShow) {
+        this.showVolumeBar(true);
+      } else if (!this.muted && this.volumeBarShow) {
+        this.setMuted(true);
+        this.setVolume(0);
+      }
+    },
+
+    showVolumeBar: function(show) {
+      if (show) {
+        this.oVolumeBar.className += ' show';
+        this.volumeBarShow = true;
+      } else {
+        this.oVolumeBar.className += 'volume-baar';
+        this.volumeBarShow = false;
+      }
+    },
+
+    setMuted: function(muted) {
+      if (muted) {
+        this.vid.muted = true;
+        this.muted = true;
+        this.oVolumeBtn.src = 'assets/volume-off.png';
+      } else {
+        this.vid.muted = false;
+        this.muted = false;
+        this.oVolumeBtn.src = 'assets/volume.png';
+      }
+    },
+
+    setVolume: function(volume) {
+      this.vid.volume = volume;
+      this.oVolumeSlide.style.height = (volume * 100) + '%';
     },
 
     setSrc: function() {
