@@ -1,5 +1,6 @@
 (function (doc) {
   var t = null;
+  var dt = null;
 
   var KSVideo = function (dom, opt) {
     this.videoBox = doc.getElementById(dom);
@@ -17,6 +18,8 @@
     this.oVolumeBar = this.oVolumeArea.getElementsByClassName('volume-bar')[0];
     this.oVolumeSlide = this.oVolumeBar.getElementsByClassName('volume-slide')[0];
     this.oFullScreenBtn = this.videoBox.getElementsByClassName('fullscreen-img')[0];
+    this.oVidHeader = this.videoBox.getElementsByClassName('vid-hd')[0];
+    this.oControlBar = this.videoBox.getElementsByClassName('control-bar')[0];
 
     console.log(this.videoBox);
 
@@ -37,6 +40,12 @@
       this.setOptions();
       this.bindEvent();
       this.autoplay && addVideoTip(this.videoBox, 'loading');
+
+      var _self = this;
+
+      dt = setTimeout(function() {
+        _self.setControlBar(true);
+      }, 5000);
     },
 
     bindEvent: function() {
@@ -54,6 +63,7 @@
       this.oVolumeBtn.addEventListener('click', this.btnSetVolume.bind(this), false);
       this.oVolumeArea.addEventListener('mouseleave', this.showVolumeBar.bind(this, false), false);
       this.oFullScreenBtn.addEventListener('click', this.setFullScreen.bind(this), false);
+      this.videoBox.addEventListener('mousemove', this.showControlBar.bind(this), false);
     },
 
     setOptions: function() {
@@ -179,6 +189,28 @@
     setSrc: function(src) {
       this.vid.src = src;
       this.vid.load();
+    },
+
+    showControlBar: function() {
+      clearTimeout(dt);
+      dt = null;
+      this.setControlBar(false);
+
+      var _self = this;
+
+      dt = setTimeout(function() {
+        _self.setControlBar(true);
+      }, 5000);
+    },
+
+    setControlBar: function(hide) {
+      if (hide) {
+        this.oVidHeader.className += ' hide';
+        this.oControlBar.className += ' hide';
+      } else {
+        this.oVidHeader.className = 'vid-hd';
+        this.oControlBar.className = 'control-bar';
+      }
     },
 
     _waiting: function() {
