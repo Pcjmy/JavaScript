@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+  <button id="btn">test</button>
   <div class="wrap">
     <div class="ks-video" id="js_KSVideo">
       <div class="vid-box">
@@ -70,6 +71,12 @@
       preload: true,
       volume: 50,
     })
+
+    var oBtn = document.getElementById('btn');
+
+    oBtn.onclick = function() {
+      ksVideo.setSrc('../video2.mp4');
+    }
   </script>
 </body>
 </html>
