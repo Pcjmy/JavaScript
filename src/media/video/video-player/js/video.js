@@ -42,6 +42,7 @@
     bindEvent: function() {
       this.vid.addEventListener('canplay', this._canplay.bind(this), false);
       this.vid.addEventListener('playing', this._playing.bind(this), false);
+      this.vid.addEventListener('waiting', this._waiting.bind(this), false);
 
       this.oPlayBtn.addEventListener('click', this.playVideo.bind(this), false);
       this.oRateBtn.addEventListener('click', this.showRateList.bind(this, true), false);
@@ -168,16 +169,28 @@
       }
     },
 
+    setVideoState: function(isPlaying) {
+      this.oPlayBtn.src = isPlaying ? 'assets/pause.png' : 'assets/play.png';
+    },
+
     setSrc: function() {
 
     },
 
+    _waiting: function() {
+      addVideoTip(this.videoBox, 'loading');
+    },
+
     _canplay: function() {
       setTime(this.oDuration, this.vid.duration);
+      removeVideoTip(this.videoBox);
     },
 
     _playing: function() {
       var _self = this;
+
+      this.setVideoState(true);
+      removeVideoTip(this.videoBox);
       
       t = setInterval(function() {
         setTime(_self.oCurrentTime, _self.vid.currentTime);
