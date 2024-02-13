@@ -16,6 +16,7 @@
     this.oVolumeBtn = this.oVolumeArea.getElementsByClassName('volume-img')[0];
     this.oVolumeBar = this.oVolumeArea.getElementsByClassName('volume-bar')[0];
     this.oVolumeSlide = this.oVolumeBar.getElementsByClassName('volume-slide')[0];
+    this.oFullScreenBtn = this.videoBox.getElementsByClassName('fullscreen-img')[0];
 
     console.log(this.videoBox);
 
@@ -26,6 +27,7 @@
 
     this.muted = false;
     this.volumeBarShow = false;
+    this.isFullScreen = false;
 
     this.init();
   }
@@ -45,6 +47,8 @@
       this.oRateArea.addEventListener('mouseleave', this.showRateList.bind(this, false), false);
       this.oRateList.addEventListener('click', this.setPlayRate.bind(this), false);
       this.oVolumeBtn.addEventListener('click', this.btnSetVolume.bind(this), false);
+      this.oVolumeArea.addEventListener('mouseleave', this.showVolumeBar.bind(this, false), false);
+      this.oFullScreenBtn.addEventListener('click', this.setFullScreen.bind(this), false);
     },
 
     setOptions: function() {
@@ -127,6 +131,40 @@
     setVolume: function(volume) {
       this.vid.volume = volume;
       this.oVolumeSlide.style.height = (volume * 100) + '%';
+    },
+
+    setFullScreen: function() {
+      if (!this.isFullScreen) {
+        if (this.videoBox.requestFullscreen) {
+          this.videoBox.requestFullscreen();
+        } else if (this.videoBox.mozRequestFullscreen) {
+          this.videoBox.mozRequestFullscreen();
+        } else if (this.videoBox.msRequestFullscreen) {
+          this.videoBox.msRequestFullscreen();
+        } else if (this.videoBox.oRequestFullscreen) {
+          this.videoBox.oRequestFullscreen();
+        } else if (this.videoBox.webkitRequestFullscreen) {
+          this.videoBox.webkitRequestFullscreen();
+        }
+
+        this.isFullScreen = true;
+        this.oFullScreenBtn.src = 'assets/fullscreen-exit.png';
+      } else {
+        if (doc.exitFullscreen) {
+          doc.exitFullscreen();
+        } else if (doc.mozExitFullscreen) {
+          doc.mozExitFullscreen();
+        } else if (doc.msExitFullscreen) {
+          doc.msExitFullscreen();
+        } else if (doc.oExitFullscreen) {
+          doc.oExitFullscreen();
+        } else if (doc.webkitExitFullscreen) {
+          doc.webkitExitFullscreen();
+        }
+
+        this.isFullScreen = false;
+        this.oFullScreenBtn.src = 'assets/fullscreen.png';
+      }
     },
 
     setSrc: function() {
