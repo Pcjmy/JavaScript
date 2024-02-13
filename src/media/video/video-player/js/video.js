@@ -43,6 +43,8 @@
       this.vid.addEventListener('canplay', this._canplay.bind(this), false);
       this.vid.addEventListener('playing', this._playing.bind(this), false);
       this.vid.addEventListener('waiting', this._waiting.bind(this), false);
+      this.vid.addEventListener('error', this._error.bind(this), false);
+      this.vid.addEventListener('ended', this._ended.bind(this), false);
 
       this.oPlayBtn.addEventListener('click', this.playVideo.bind(this), false);
       this.oRateBtn.addEventListener('click', this.showRateList.bind(this, true), false);
@@ -195,6 +197,16 @@
       t = setInterval(function() {
         setTime(_self.oCurrentTime, _self.vid.currentTime);
       }, 1000);
+    },
+    
+    _error: function() {
+      removeVideoTip(this.videoBox);
+      addVideoTip(this.videoBox, 'error');
+    },
+
+    _ended: function() {
+      removeVideoTip(this.videoBox);
+      addVideoTip(this.videoBox, 'ended');
     }
   }
 
