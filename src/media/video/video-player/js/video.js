@@ -36,6 +36,7 @@
     init: function () {
       this.setOptions();
       this.bindEvent();
+      this.autoplay && addVideoTip(this.videoBox, 'loading');
     },
 
     bindEvent: function() {
@@ -186,6 +187,37 @@
 
   function setTime (dom, time) {
     dom.innerText = timeFormat(time);
+  }
+
+  function addVideoTip (dom, type) {
+    var icon = '';
+    var text = '';
+
+    switch (type) {
+      case 'loading':
+        icon = 'assets/loading.gif';
+        text = '加载中';
+        break;
+      case 'error':
+        icon = 'assets/error.png';
+        text = '播放错误';
+      case 'ended':
+        icon = 'assets/ended.png';
+        text = '播放完成';
+        break;
+      default:
+        break;
+    }
+
+    var oTip = doc.createElement('div');
+    oTip.className = 'video-tip';
+    oTip.innerHTML = '<img src="' + icon + '" /><p>' + text + '</p>';
+    dom.appendChild(oTip);
+  }
+
+  function removeVideoTip (dom) {
+    var oTip = doc.getElementsByClassName('video-tip')[0];
+    oTip && dom.removeChild(oTip);
   }
 
   function timeFormat (second) {

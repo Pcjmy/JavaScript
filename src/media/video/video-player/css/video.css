@@ -288,3 +288,23 @@
   height: 18px;
   margin: 16px 0 0 15px;
 }
+
+.ks-video .video-tip {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -50px;
+	width: 100px;
+	height: 100px;
+	background-color: rgba(0, 0, 0, .3);
+	border-radius: 10px;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+}
+
+.ks-video .video-tip img {
+	width: 50px;
+	height: 50px;
+	margin-top: 10px;
+}
