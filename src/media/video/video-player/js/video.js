@@ -16,7 +16,9 @@
     this.oVolumeArea = this.videoBox.getElementsByClassName('volume-area')[0];
     this.oVolumeBtn = this.oVolumeArea.getElementsByClassName('volume-img')[0];
     this.oVolumeBar = this.oVolumeArea.getElementsByClassName('volume-bar')[0];
+    this.oVolumeSlideBar = this.oVolumeBar.getElementsByClassName('slide-bar')[0];
     this.oVolumeSlide = this.oVolumeBar.getElementsByClassName('volume-slide')[0];
+    this.oVolumeRound = this.oVolumeSlide.getElementsByClassName('round')[0];
     this.oFullScreenBtn = this.videoBox.getElementsByClassName('fullscreen-img')[0];
     this.oVidHeader = this.videoBox.getElementsByClassName('vid-hd')[0];
     this.oControlBar = this.videoBox.getElementsByClassName('control-bar')[0];
@@ -62,6 +64,7 @@
       this.oRateList.addEventListener('click', this.setPlayRate.bind(this), false);
       this.oVolumeBtn.addEventListener('click', this.btnSetVolume.bind(this), false);
       this.oVolumeArea.addEventListener('mouseleave', this.showVolumeBar.bind(this, false), false);
+      this.oVolumeRound.addEventListener('mousedown', this.slideVolumeBar.bind(this), false);
       this.oFullScreenBtn.addEventListener('click', this.setFullScreen.bind(this), false);
       this.videoBox.addEventListener('mousemove', this.showControlBar.bind(this), false);
     },
@@ -126,7 +129,7 @@
         this.oVolumeBar.className += ' show';
         this.volumeBarShow = true;
       } else {
-        this.oVolumeBar.className += 'volume-baar';
+        this.oVolumeBar.className = 'volume-bar';
         this.volumeBarShow = false;
       }
     },
@@ -210,6 +213,52 @@
       } else {
         this.oVidHeader.className = 'vid-hd';
         this.oControlBar.className = 'control-bar';
+      }
+    },
+
+    slideVolumeBar: function() {
+      var e = e || window.event;
+      var dy = e.pageY;
+      var my = 0;
+      var disY = 0;
+      var sHeight = 0;
+      var slideHeight = this.oVolumeSlide.offsetHeight;
+      var volumeBarHeight = this.oVolumeSlideBar.offsetHeight;
+      var _mousemove = _mouseMove.bind(this);
+      var _mouseup = _mouseUp.bind(this);
+
+      console.log(slideHeight, volumeBarHeight);
+
+      doc.addEventListener('mousemove', _mousemove, false);
+      doc.addEventListener('mouseup', _mouseup, false);
+
+      function _mouseMove(e) {
+        var e = e || window.event;
+        my = e.pageY;
+        disY = dy - my;
+        sHeight = slideHeight + disY;
+
+        if (sHeight < volumeBarHeight && sHeight > 0) {
+          this.oVolumeSlide.style.height = sHeight + 'px';
+          this.setMuted(false);
+        } else if (sHeight >= volumeBarHeight) {
+          this.oVolumeSlide.style.height = volumeBarHeight + 'px';
+          sHeight = volumeBarHeight;
+          this.setMuted(false);
+        } else if (sHeight <= 0) {
+          this.oVolumeSlide.style.height = '0';
+          sHeight = 0;
+          this.setMuted(true);
+        }
+
+        this.volume = (sHeight / volumeBarHeight).toFixed(1);
+        this.setVolume(this.volume);
+        this.volume = Number(this.volume) === 0 ? 0.5 : this.volume;
+      }
+
+      function _mouseUp() {
+        doc.removeEventListener('mousemove', _mousemove, false);
+        doc.removeEventListener('mouseup', _mouseup, false);
       }
     },
 
