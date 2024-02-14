@@ -73,7 +73,7 @@
       this.vid.src = this.src;
       this.vid.autoplay = this.autoplay;
       this.vid.preload = this.preload;
-      this.setVolume(this.volume);
+      this.setVolume(this.volume, true);
     },
 
     playVideo: function() {
@@ -117,10 +117,10 @@
         this.showVolumeBar(true);
       } else if (!this.muted && this.volumeBarShow) {
         this.setMuted(true);
-        this.setVolume(0);
+        this.setVolume(0, true);
       } else {
         this.setMuted(false);
-        this.setVolume(this.volume);
+        this.setVolume(this.volume, true);
       }
     },
 
@@ -146,9 +146,9 @@
       }
     },
 
-    setVolume: function(volume) {
+    setVolume: function(volume, isChangeBar) {
       this.vid.volume = volume;
-      this.oVolumeSlide.style.height = (volume * 100) + '%';
+      isChangeBar && (this.oVolumeSlide.style.height = (volume * 100) + '%');
     },
 
     setFullScreen: function() {
@@ -252,7 +252,7 @@
         }
 
         this.volume = (sHeight / volumeBarHeight).toFixed(1);
-        this.setVolume(this.volume);
+        this.setVolume(this.volume, false);
         this.volume = Number(this.volume) === 0 ? 0.5 : this.volume;
       }
 
