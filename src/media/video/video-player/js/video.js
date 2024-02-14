@@ -1,6 +1,7 @@
 (function (doc) {
   var t = null;
   var dt = null;
+  var pt = null;
 
   var KSVideo = function (dom, opt) {
     this.videoBox = doc.getElementById(dom);
@@ -22,6 +23,9 @@
     this.oFullScreenBtn = this.videoBox.getElementsByClassName('fullscreen-img')[0];
     this.oVidHeader = this.videoBox.getElementsByClassName('vid-hd')[0];
     this.oControlBar = this.videoBox.getElementsByClassName('control-bar')[0];
+    this.oProgressBar = this.videoBox.getElementsByClassName('progress-bar')[0];
+    this.oPlayProgress = this.oProgressBar.getElementsByClassName('play-progress')[0];
+    this.oPreloadProgress = this.oProgressBar.getElementsByClassName('preload-progress')[0];
 
     console.log(this.videoBox);
 
@@ -274,6 +278,20 @@
     _canplay: function() {
       setTime(this.oDuration, this.vid.duration);
       removeVideoTip(this.videoBox);
+
+      var _self = this;
+      var duration = this.vid.duration;
+      var preloadProgress = 0;
+      var progressBarWidth = this.oProgressBar.offsetWidth;
+
+      pt = setInterval(function() {
+        preloadProgress = _self.vid.buffered.end(0);
+        _self.oPreloadProgress.style.width = (preloadProgress / duration) * 100 + '%';
+        if (_self.oPreloadProgress.offsetWidth >= progressBarWidth) {
+          clearInterval(pt);
+          pt = null;
+        }
+      }, 1000);
     },
 
     _playing: function() {
