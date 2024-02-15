@@ -295,13 +295,23 @@
     },
 
     _playing: function() {
-      var _self = this;
-
       this.setVideoState(true);
       removeVideoTip(this.videoBox);
+
+      var _self = this;
+      var duration = this.vid.duration;
+      var currentTime = 0;
+      var progressBarWidth = this.oProgressBar.offsetWidth;
       
       t = setInterval(function() {
-        setTime(_self.oCurrentTime, _self.vid.currentTime);
+        currentTime = _self.vid.currentTime;
+        setTime(_self.oCurrentTime, currentTime);
+        _self.oPlayProgress.style.width = (currentTime / duration) * 100 + '%';
+
+        if (_self.oPlayProgress.offsetWidth >= progressBarWidth) {
+          clearInterval(t);
+          t = null;
+        }
       }, 1000);
     },
     
