@@ -367,6 +367,7 @@
     _ended: function() {
       removeVideoTip(this.videoBox);
       addVideoTip(this.videoBox, 'ended');
+      this.setVideoState(false);
     }
   }
 
