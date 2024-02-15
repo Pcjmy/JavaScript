@@ -26,6 +26,7 @@
     this.oProgressBar = this.videoBox.getElementsByClassName('progress-bar')[0];
     this.oPlayProgress = this.oProgressBar.getElementsByClassName('play-progress')[0];
     this.oPreloadProgress = this.oProgressBar.getElementsByClassName('preload-progress')[0];
+    this.oPlayRound = this.oPlayProgress.getElementsByClassName('round')[0];
 
     console.log(this.videoBox);
 
@@ -72,6 +73,7 @@
       this.oFullScreenBtn.addEventListener('click', this.setFullScreen.bind(this), false);
       this.videoBox.addEventListener('mousemove', this.showControlBar.bind(this), false);
       this.oProgressBar.addEventListener('click', this.progressClick.bind(this), false);
+      this.oPlayRound.addEventListener('mousedown', this.progressChange.bind(this), false);
     },
 
     setOptions: function() {
@@ -269,8 +271,40 @@
 
     progressClick: function(e) {
       var e = e || window.event;
-      var ratio = (e.pageX - this.videoBox.offsetLeft) / this.oProgressBar.offsetWidth;
+      this.setPlayProgress(e.pageX);
+    },
+
+    progressChange: function() {
+      var _mousemove = _mouseMove.bind(this);
+      var _mouseup = _mouseUp.bind(this);
+      
+      doc.addEventListener('mousemove', _mousemove, false);
+      doc.addEventListener('mouseup', _mouseup, false);
+
+      function _mouseMove(e) {
+        var e = e || window.event;
+        this.setPlayProgress(e.pageX);
+      }
+
+      function _mouseUp() {
+        doc.removeEventListener('mousemove', _mousemove, false);
+        doc.removeEventListener('mouseup', _mouseup, false);
+      }
+    },
+
+    setPlayProgress: function(pageX) {
       var duration = this.vid.duration;
+      var curProgressBarWidth = pageX - this.videoBox.offsetLeft;
+      var ratio = 0;
+
+      if (curProgressBarWidth <= 0) {
+        ratio = 0;
+      } else if (curProgressBarWidth >= this.oProgressBar.offsetWidth) {
+        ratio = 1;
+      } else {
+        ratio = curProgressBarWidth / this.oProgressBar.offsetWidth;
+      }
+
       this.vid.currentTime = duration * ratio;
       setTime(this.oCurrentTime, this.vid.currentTime);
       this.setVideoState(true);
