@@ -71,6 +71,7 @@
       this.oVolumeRound.addEventListener('mousedown', this.slideVolumeBar.bind(this), false);
       this.oFullScreenBtn.addEventListener('click', this.setFullScreen.bind(this), false);
       this.videoBox.addEventListener('mousemove', this.showControlBar.bind(this), false);
+      this.oProgressBar.addEventListener('click', this.progressClick.bind(this), false);
     },
 
     setOptions: function() {
@@ -264,6 +265,17 @@
         doc.removeEventListener('mousemove', _mousemove, false);
         doc.removeEventListener('mouseup', _mouseup, false);
       }
+    },
+
+    progressClick: function(e) {
+      var e = e || window.event;
+      var ratio = (e.pageX - this.videoBox.offsetLeft) / this.oProgressBar.offsetWidth;
+      var duration = this.vid.duration;
+      this.vid.currentTime = duration * ratio;
+      setTime(this.oCurrentTime, this.vid.currentTime);
+      this.setVideoState(true);
+      this.vid.play();
+      this.oPlayProgress.style.width = ratio * 100 + '%';
     },
 
     _waiting: function() {
