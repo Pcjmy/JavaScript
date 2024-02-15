@@ -28,12 +28,11 @@
     this.oPreloadProgress = this.oProgressBar.getElementsByClassName('preload-progress')[0];
     this.oPlayRound = this.oPlayProgress.getElementsByClassName('round')[0];
 
-    console.log(this.videoBox);
-
     this.src = opt.src;
     this.autoplay = opt.autoplay || false;
     this.preload = this.autoplay ? false : (opt.preload || false);
     this.volume = opt.volume / 100 || 1;
+    this.loop = opt.loop || false;
 
     this.muted = false;
     this.volumeBarShow = false;
@@ -80,6 +79,7 @@
       this.vid.src = this.src;
       this.vid.autoplay = this.autoplay;
       this.vid.preload = this.preload;
+      this.vid.loop = this.loop;
       this.setVolume(this.volume, true);
     },
 
@@ -234,8 +234,6 @@
       var _mousemove = _mouseMove.bind(this);
       var _mouseup = _mouseUp.bind(this);
 
-      console.log(slideHeight, volumeBarHeight);
-
       doc.addEventListener('mousemove', _mousemove, false);
       doc.addEventListener('mouseup', _mouseup, false);
 
@@ -277,7 +275,7 @@
     progressChange: function() {
       var _mousemove = _mouseMove.bind(this);
       var _mouseup = _mouseUp.bind(this);
-      
+
       doc.addEventListener('mousemove', _mousemove, false);
       doc.addEventListener('mouseup', _mouseup, false);
 
