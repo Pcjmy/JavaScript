@@ -59,9 +59,11 @@ function run(func) {
     func();
   } catch(err) {
     if (err instanceof Promise) {
-      window.fetch = newFetch;
-      err.finally(func);
-      window.fetch = oldFetch;
+      err.finally(() => {
+        window.fetch = newFetch;
+        func();
+        window.fetch = oldFetch;
+      });
     }
   }
   // 3. 改回fetch
