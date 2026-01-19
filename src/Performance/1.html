@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance API - FP & FCP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .metrics {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 5px;
+    }
+    .metric {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .content {
+      margin-top: 30px;
+      padding: 20px;
+      background: #e3f2fd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Performance API - FP & FCP 示例</h1>
+  <p>此页面演示如何使用 Performance API 获取首次绘制 (FP) 和首次内容绘制 (FCP) 指标。</p>
+  
+  <div class="metrics" id="metrics">
+    <p>等待性能数据加载...</p>
+  </div>
+
+  <div class="content">
+    <h2>示例内容</h2>
+    <p>这是一些示例内容，用于触发首次内容绘制 (FCP)。</p>
+    <ul>
+      <li>列表项 1</li>
+      <li>列表项 2</li>
+      <li>列表项 3</li>
+    </ul>
+  </div>
+
+  <script>
+    const metricsDiv = document.getElementById('metrics');
+    let fp = null;
+    let fcp = null;
+
+    function formatTime(time) {
+      if (time === null) return 'N/A';
+      return `${time.toFixed(2)} ms`;
+    }
+
+    function displayMetrics() {
+      metricsDiv.innerHTML = `
+        <div class="metric"><strong>首次绘制 (FP):</strong> ${formatTime(fp)}</div>
+        <div class="metric"><strong>首次内容绘制 (FCP):</strong> ${formatTime(fcp)}</div>
+      `;
+    }
+
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.name === 'first-paint') {
+          fp = entry.startTime;
+        } else if (entry.name === 'first-contentful-paint') {
+          fcp = entry.startTime;
+        }
+        displayMetrics();
+      }
+    });
+
+    observer.observe({ type: 'paint', buffered: true });
+
+    setTimeout(() => {
+      if (fp === null && fcp === null) {
+        const performanceEntries = performance.getEntriesByType('paint');
+        performanceEntries.forEach(entry => {
+          if (entry.name === 'first-paint') {
+            fp = entry.startTime;
+          } else if (entry.name === 'first-contentful-paint') {
+            fcp = entry.startTime;
+          }
+        });
+        displayMetrics();
+      }
+    }, 100);
+
+    console.log('Performance Entries:', performance.getEntriesByType('paint'));
+  </script>
+</body>
+</html>
